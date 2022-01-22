@@ -6,6 +6,7 @@ import CvFormEducation from "./components/cv-form-education";
 import CvSkills from './components/cv-form-skills'
 import ViewCV from './components/cv-view'
 import DefaultCv from "./components/cv-default";
+import DisplayPhoto from './components/cv-load-photo';
 
 
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
         tel: "",
         email: "",
         aboutMe: "",
-        workExp: [],
+        myImage:""
       },
       workExp: [
         {
@@ -70,6 +71,12 @@ class App extends Component {
     this.setState(newState)
   }
 
+  changeValuee = (value, key) => {
+    let newState = Object.assign({}, this.state)
+    newState[key] = value
+    this.setState(newState)
+  }
+
   deleteFromArr = (id) => {
     console.log(id)
     let newState = Object.assign({}, this.state)
@@ -78,19 +85,24 @@ class App extends Component {
     this.setState(newState)
   }
 
+  componentDidUpdate(){
+    console.log(this.state)
+  }
+
   render() {
     return (
       <div id='appCont' >
         <div id='editorCV'>
+          <DisplayPhoto onChange={this.changeValuee}/>
           <CvFormPersonal onChange={this.changeValue} />
           <CvFormWorkExp name='WorkExperience' onChange={this.changeArray} update={this.delete} />
           <CvFormEducation onChange={this.changeArray} />
           <CvSkills onChange={this.addToArray} />
           <DefaultCv loadCV={this.loadDefault}></DefaultCv>
         </div>
-        <div id='resultCont'>
+        {/* <div id='resultCont'>
           <ViewCV className='page' info={this.state} deleteSkill={this.deleteFromArr} />
-        </div>
+        </div> */}
         
       </div>
     )

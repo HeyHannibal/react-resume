@@ -6,12 +6,26 @@ class viewCV extends Component {
         super(props)
         this.state = {};
         this.deleteSkill = this.deleteSkill.bind(this)
+        this.onImageChange = this.onImageChange.bind(this);
+
     }
 
     deleteSkill (e) {
         console.log(e.target.id)
         this.props.deleteSkill(e.target.id)
     }
+
+    onImageChange() {
+        let img = this.props.myImage
+          this.setState({
+            image: URL.createObjectURL(img)
+          });
+        }
+        componentDidUpdate() {
+            console.log(this.props)
+          }
+          
+    
 
     render() {
      const props = this.props.info;
@@ -43,6 +57,7 @@ class viewCV extends Component {
             </a> 
         </li>
       );
+      
 
         return (
             <div id='resultCV'>
@@ -52,6 +67,7 @@ class viewCV extends Component {
                 <a href='tel'>{props.personalInfo.tel}</a>
                 <p>{props.personalInfo.email}</p>
                 <p>{props.personalInfo.aboutMe}</p>
+                 <img id='CVphoto' src={(props.photo)}></img> 
               </div>
               <div id='workExperienceView'>
                   {workExp}
