@@ -1,11 +1,13 @@
 html{
     height: 100vh;
+    box-sizing: border-box;
+
 }
 body,html{
     height: 100%;
     padding: 0;
     margin: 0;
-    font-family:  Helvetica, sans-serif;
+    font-family:  'Roboto'
 }
 form{
     display: flex;
@@ -13,3 +15,10 @@ form{
     align-items: center;
 }
 
+input{
+    font-family: 'Roboto';
+}
+button{
+    background-color: transparent;
+    border:none;
+}

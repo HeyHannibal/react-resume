@@ -93,17 +93,16 @@ class App extends Component {
     return (
       <div id='appCont' >
         <div id='editorCV'>
-          <DisplayPhoto onChange={this.changeValuee}/>
-          <CvFormPersonal onChange={this.changeValue} />
+          <CvFormPersonal onChange={this.changeValue} onPhotoUpload={this.changeValuee} />
           <CvFormWorkExp name='WorkExperience' onChange={this.changeArray} update={this.delete} />
           <CvFormEducation onChange={this.changeArray} />
-          <CvSkills onChange={this.addToArray} />
-          <DefaultCv loadCV={this.loadDefault}></DefaultCv>
+          <CvSkills onChange={this.changeArray} />
+          {/* <DefaultCv loadCV={this.loadDefault}></DefaultCv> */}
         </div>
         {/* <div id='resultCont'>
           <ViewCV className='page' info={this.state} deleteSkill={this.deleteFromArr} />
-        </div> */}
-        
+        </div>
+         */}
       </div>
     )
   }

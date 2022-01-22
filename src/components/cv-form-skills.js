@@ -1,29 +1,37 @@
 import React, { Component } from 'react'
 import uniqid from 'uniqid'
+import ClearIcon from '@mui/icons-material/Clear';
 
 class CvSkills extends Component {
     constructor(props) {
         super(props)
-        this.sendObjToParent = this.sendObjToParent.bind(this)
+        this.sendArrToParent = this.sendArrToParent.bind(this)
         this.addSkill = this.addSkill.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.deleteSkill = this.deleteSkill.bind(this)
         this.state = {
             currentInput: '',
+            skills: [
+
+            ]
         }
     }
 
-    sendObjToParent(skill) {
-        this.props.onChange("skills", skill);
+    sendArrToParent() {
+        this.props.onChange("skills", this.state.skills);
     }
 
     addSkill(e) {
+        let newState = Object.assign({}, this.state)
         let newSkill = {
             skill: this.state.currentInput,
             id: uniqid(),
         }
-        this.setState({ currentInput: '' })
+        newState.skills.push(newSkill)
+        newState.currentInput = ''
         e.preventDefault()
-        this.sendObjToParent(newSkill)
+        this.setState(newState)
+        this.sendArrToParent(newSkill)
     }
 
     handleChange(event) {
@@ -33,14 +41,36 @@ class CvSkills extends Component {
         })
     }
 
+    deleteSkill(event) {
+        let newSkills = [...this.state.skills]
+        let index = newSkills.findIndex((item) =>
+            ((item.id).toString() === event.target.id.toString()))
+        newSkills.splice(index, 1)
+        this.setState({skills: newSkills})
+    }
+
+
     render() {
+
+        const skills = this.state.skills.map((item) => 
+        <li key={item.id} class='skillListItem'>        
+            {item.skill} 
+    
+           
+             <ClearIcon id={item.id} 
+            onClick={this.deleteSkill} />   
+            
+        </li>
+        )
+
         return (
             <div id='skillsForm'>
-                <form onSubmit={this.addSkill}>
-                    <input type='text' value={this.state.currentInput} onChange={this.handleChange}></input>
-                    <button type='submit'>Add Skill</button>
-                    <h1></h1>
+                <h3>Skills</h3>
+                <form onSubmit={this.addSkill} id='skillsForm'>
+                    <input type='text' id='skillsFormInput' value={this.state.currentInput} onChange={this.handleChange}></input>
+                    <button  className='addNewField' type='submit'>➕ Add Skill</button>
                 </form>
+                <ul id='skillList'>{skills}</ul>
             </div>
         )
     }

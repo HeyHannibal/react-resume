@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import uniqid from "uniqid";
-
+import ClearIcon from '@mui/icons-material/Clear';
 
 class CvFormWorkExp extends Component {
     constructor(props) {
@@ -78,78 +78,98 @@ class CvFormWorkExp extends Component {
         let activeField = (id) => this.state.workExp[this.findInState(id)]
         
         const inputs = this.state.workExp.map((item) => (    
-            <form key={item.id}  action="#" onSubmit={this.onFormChange} onChange={this.onFormChange}>
-            Work Experience
-            <input
-                name='position'    
-                value={activeField(item.id).position}
-                onChange={this.updateOnChange}
-                id={item.id}
-                placeholder='Position' 
-                type='text'
-                key={item.id+'posInput'}>
-            </input>
+            <div className='experienceFormDiv' key={item.id}>
+            <form  className='workExperienceForm'  action="#" onSubmit={this.onFormChange} onChange={this.onFormChange}>
+            <label>
+                Position
+                <input
+                    name='position'
+                    value={activeField(item.id).position}
+                    onChange={this.updateOnChange}
+                    id={item.id}
+                    placeholder='Position'
+                    type='text'
+                    key={item.id+'posInput'}>
+                </input>
+            </label>
             
-            <input
-                name='company'    
-                value={activeField(item.id).company}
-                onChange={this.updateOnChange}
-                id={item.id}
-                placeholder='Company' 
-                type='text'
-                key={item.id+'compInput'}>
-            </input>
+            <label htmlFor="company">
+                Company
+                <input
+                    name='company'
+                    value={activeField(item.id).company}
+                    onChange={this.updateOnChange}
+                    id={item.id}
+                    placeholder='Company'
+                    type='text'
+                    key={item.id+'compInput'}>
+                </input>
+            </label>
 
-            <input
-                name='dateFrom'    
-                value={activeField(item.id).dateFrom}
-                max={(activeField(item.id).dateTo != '') ? 
-                    activeField(item.id).dateTo : currentDate()} 
-                onChange={this.updateOnChange}
-                id={item.id}
-                type='date'
-                key={item.id+'dateFromInput'}>
-            </input>
+            <label htmlFor="dateFrom">
+                Start Date
+                <input
+                    name='dateFrom'
+                    value={activeField(item.id).dateFrom}
+                    max={(activeField(item.id).dateTo != '') ?
+                        activeField(item.id).dateTo : currentDate()}
+                    onChange={this.updateOnChange}
+                    id={item.id}
+                    type='month'
+                    key={item.id+'dateFromInput'}>
+                </input>
+            </label>
 
-            <input
-                name='dateTo'    
-                value={activeField(item.id).dateTo}
-                min={activeField(item.id).dateFrom} 
-                max={currentDate()} 
-                onChange={this.updateOnChange}
-                id={item.id}
-                placeholder='Company' 
-                type='date'
-                key={item.id+'dateToInput'}>
-            </input>
- 
+            <label htmlFor="dateTo">
+                End Date
+                <input
+                    name='dateTo'
+                    value={activeField(item.id).dateTo}
+                    min={activeField(item.id).dateFrom}
+                    max={currentDate()}
+                    onChange={this.updateOnChange}
+                    id={item.id}
+                    placeholder='Company'
+                    type='month'
+                    key={item.id+'dateToInput'}>
+                </input>
+            </label>
+            <label className='textareaLabel'>
+
+           
             <textarea
                 name='description'    
                 value={activeField(item.id).description}
-                rows='4'
+                rows='5'
                 cols='40'
                 onChange={this.updateOnChange}
                 id={item.id}
+                className='textareaCV'
                 placeholder='' 
                 key={item.id+'descInput'}>
             </textarea>
-
+            </label>
+            
+            </form>
             <button
                 onClick={this.deleteField} 
-                className='delete' 
+                className='deleteForm'
                 key={item.id+'del'}
                 id={item.id}
-                >Delete
+                >
+                    <ClearIcon />
             </button>
-
-            </form>
+            </div>
         ))
         return (
             <div id='workExpFrom'>
+                        <h3>Work Experience</h3>
+
                 {inputs}      
                 <button 
+                    className='addNewField'
                     onClick={this.onClickAddField}
-                >Add
+                >➕ Work Experience
                 </button>
             </div>
         )

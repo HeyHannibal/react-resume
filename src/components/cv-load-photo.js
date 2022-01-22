@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 class DisplayImage extends Component {
   constructor(props) {
@@ -22,11 +23,13 @@ class DisplayImage extends Component {
     return (
       <div>
         <div>
-          <div>
+          <div id='uploadPhotoDiv'>
             <img src={this.state.image} />
-            <label>Add Photo
-            <input type="file" name="myImage" onChange={this.onImageChange} />
+            <input id='photoInput' type="file" name="myImage" onChange={this.onImageChange} hidden />
+            <label htmlFor='photoInput' id='styleUploadBtnLabel'>
+              <AccountBoxIcon />
             </label>
+            <label id='uploadPhotoLabel'>Upload Photo</label>
           </div>
         </div>
       </div>
