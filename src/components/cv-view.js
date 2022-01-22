@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import uniqid from 'uniqid'
-
+import '../cv-view.css'
 class viewCV extends Component {
     constructor(props) {
         super(props)
-        this.state = {};
+        this.state = {
+            isHidden:false,
+        };
         this.deleteSkill = this.deleteSkill.bind(this)
         this.onImageChange = this.onImageChange.bind(this);
-
     }
 
     deleteSkill (e) {
@@ -25,7 +26,7 @@ class viewCV extends Component {
             console.log(this.props)
           }
           
-    
+  
 
     render() {
      const props = this.props.info;
@@ -58,9 +59,12 @@ class viewCV extends Component {
         </li>
       );
       
+      
 
+      const isHidden = props.isHidden;
         return (
-            <div id='resultCV'>
+            <div id='resultCont' className={(isHidden) ? 'hideCV' : 'showCV' }>
+            <div  id='resultCV' ref={this.viewRef}>
               <div id='personalInfoView'>
                 <h1>{props.personalInfo.fullName}</h1>
                 <h2>{props.personalInfo.title}</h2>
@@ -79,6 +83,7 @@ class viewCV extends Component {
                   <ul>{skills}</ul>
               </div>
             </div>
+           </div> 
         )
     }
 }

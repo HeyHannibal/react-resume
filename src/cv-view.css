@@ -1,0 +1,40 @@
+
+#resultCV {
+    height: 90vh;
+    /* margin: 40vh 10vw; */
+    background-color: rgb(255, 255, 255);
+    aspect-ratio: 1 / 1.4142;
+    box-shadow: 3px 3px 10px rgba(66, 66, 66, 0.685);
+    border-radius: 5px;
+    transition: transform 2s ease-in-out;
+  }
+
+
+  @media (min-width: 1600px) {
+    #resultCV{
+        height:90vh;
+    }
+}
+ @media (max-width: 1350px) {
+    #resultCV{
+        height:80vh;
+    }
+}
+
+@media (max-width: 1150px) {
+    #resultCV{
+        height:70vh;
+    }
+}
+
+@media (max-width: 1150px) {
+    #resultCV{
+        height:65vh;
+    }
+}
+
+@media (max-width: 950px){
+    #resultCV{
+        height: 100%;
+    }
+}

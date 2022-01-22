@@ -7,7 +7,7 @@ import CvSkills from './components/cv-form-skills'
 import ViewCV from './components/cv-view'
 import DefaultCv from "./components/cv-default";
 import DisplayPhoto from './components/cv-load-photo';
-
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 class App extends Component {
   constructor(props) {
@@ -42,10 +42,12 @@ class App extends Component {
         }
       ],
       skills: [
-      ]
+      ],
+      isHidden:false,
     };
     this.loadDefault = this.loadDefault.bind(this)
     this.changeValue = this.changeValue.bind(this);
+    this.hideView = this.hideView.bind(this)
   }
 
   loadDefault(state) {
@@ -85,24 +87,31 @@ class App extends Component {
     this.setState(newState)
   }
 
-  componentDidUpdate(){
-    console.log(this.state)
-  }
+  
+
+  hideView() {
+    (this.state.isHidden) ? this.setState({isHidden: false}) :
+                            this.setState({isHidden: true});
+}
 
   render() {
     return (
-      <div id='appCont' >
+      <div id='appCont' className={(this.state.isHidden) ? 'viewIsHidden' : ''}>
+        <button id='hideViewBtn' onClick={this.hideView} className={(this.state.isHidden) ? 'onWhite' : ''} >
+          <VisibilityOffIcon  sx={{ fontSize: 50 }} /> 
+          </button>
+
         <div id='editorCV'>
+
           <CvFormPersonal onChange={this.changeValue} onPhotoUpload={this.changeValuee} />
           <CvFormWorkExp name='WorkExperience' onChange={this.changeArray} update={this.delete} />
           <CvFormEducation onChange={this.changeArray} />
           <CvSkills onChange={this.changeArray} />
           {/* <DefaultCv loadCV={this.loadDefault}></DefaultCv> */}
         </div>
-        {/* <div id='resultCont'>
-          <ViewCV className='page' info={this.state} deleteSkill={this.deleteFromArr} />
-        </div>
-         */}
+        <div id='pushLeft' className={(this.state.isHidden) ? 'hideCV' : 'showCV'}></div>
+        
+          <ViewCV id='View' className='page' info={this.state} deleteSkill={this.deleteFromArr} />
       </div>
     )
   }
