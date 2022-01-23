@@ -32,6 +32,13 @@ class CvFormEducation extends Component {
         this.onFormChange = this.onFormChange.bind(this);
 
     }
+
+    componentDidUpdate() {
+        setTimeout( () => {if(this.props.default) {
+            this.setState({education:[this.props.default]})
+           }}, 500)
+    }
+
     onFormChange(e) {
         e.preventDefault()
         this.props.onChange("education", this.state.education);

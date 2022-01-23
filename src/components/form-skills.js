@@ -16,7 +16,11 @@ class CvSkills extends Component {
             ]
         }
     }
-
+    componentDidUpdate() {
+        setTimeout( () => {if(this.props.default) {
+            this.setState({skills:this.props.default})
+           }}, 500)
+    }
     sendArrToParent() {
         this.props.onChange("skills", this.state.skills);
     }
@@ -53,7 +57,7 @@ class CvSkills extends Component {
     render() {
 
         const skills = this.state.skills.map((item) => 
-        <li key={item.id} class='skillListItem'>        
+        <li key={item.id} className='skillListItem'>        
             {item.skill} 
     
            

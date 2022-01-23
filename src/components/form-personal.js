@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import DisplayPhoto from "./cv-load-photo";
+import DisplayPhoto from "./load-photo";
 
 class CvFormPersonal extends Component {
   constructor(props) {
@@ -14,7 +14,15 @@ class CvFormPersonal extends Component {
       email: "",
       aboutMe: "",
       photo: "",
+      location:""
     };
+  }
+
+
+  componentDidUpdate() {
+    setTimeout( () => {if(this.props.default) {
+     this.setState(this.props.default)
+    }}, 500)
   }
 
   onFormChange(e) {
@@ -63,7 +71,7 @@ class CvFormPersonal extends Component {
             <input
               name="location"
               type="text"
-              value={this.state.loacation}
+              value={this.state.location}
               onChange={this.handleChange}
               placeholder="Country, City, State"
             ></input>
@@ -84,6 +92,7 @@ class CvFormPersonal extends Component {
             <input
               name="tel"
               type="tel"
+              value={this.state.tel}
               placeholder="+1 000 0000000"
               onChange={this.handleChange}
             ></input>
@@ -93,6 +102,8 @@ class CvFormPersonal extends Component {
             <input
               name="email"
               type="email"
+              value={this.state.email}
+
               onChange={this.handleChange}
               placeholder="name@mail.com"
             ></input>
@@ -104,6 +115,7 @@ class CvFormPersonal extends Component {
               id="aboutMeTextarea"
               className="textareaCV"
               rows="6"
+              value={this.state.aboutMe}
               onChange={this.handleChange}
             ></textarea>
           </label>

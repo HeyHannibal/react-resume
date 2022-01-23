@@ -22,6 +22,10 @@ class CvFormWorkExp extends Component {
                     dateFrom:'',
                     dateTo:'',
                     description:'',
+                    descriptionUl: [
+
+                    ]
+
                 }
             ],
             
@@ -31,6 +35,11 @@ class CvFormWorkExp extends Component {
     this.findInState = this.findInState.bind(this)
     this.onFormChange = this.onFormChange.bind(this)
     this.deleteField = this.deleteField.bind(this)
+    }
+    componentDidUpdate(){
+        setTimeout( () => {if(this.props.default) {
+            this.setState({workExp:[this.props.default]})
+           }}, 500)
     }
 
     onFormChange(e) {
@@ -55,13 +64,15 @@ class CvFormWorkExp extends Component {
         this.setState({workExp: workArr})
     }
 
-    updateOnChange(event) {
+    updateOnChange(event, customValue) {
         let propName = event.target.name
         let workArr = [...this.state.workExp]
         let ObjToUpdate = this.findInState(event.target.id)
-        workArr[ObjToUpdate][propName] = event.target.value;
+        workArr[ObjToUpdate][propName] = (customValue) ? customValue : event.target.value;
         this.setState({workExp: workArr})
+        console.log(this.state)
     }
+
 
     deleteField(event) {
         let workArr = [...this.state.workExp]
@@ -71,7 +82,6 @@ class CvFormWorkExp extends Component {
         this.props.onChange("workExp", workArr);
 
     }
-
 
     render() {
         let currentDate = () => (new Date()).toISOString().split('T')[0]
@@ -145,8 +155,9 @@ class CvFormWorkExp extends Component {
                 onChange={this.updateOnChange}
                 id={item.id}
                 className='textareaCV'
-                placeholder='' 
+                placeholder=''
                 key={item.id+'descInput'}>
+            
             </textarea>
             </label>
             

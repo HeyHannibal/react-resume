@@ -1,0 +1,121 @@
+#mainContent::-webkit-scrollbar {
+    width: 0.3cm;
+  }
+  
+  #mainContent::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);
+  }
+  
+  #mainContent::-webkit-scrollbar-thumb {
+    background-color: rgb(211, 211, 211);
+    border: 5px solid rgba(255, 255, 255, 0);
+  }
+
+#contentContainerCV{
+    width: 100%;
+    height: 100%;
+    font-family: 'Lato';
+}
+#mainContent{
+    box-sizing: border-box;
+    height: 86.5%;
+    padding: 1cm 2cm 0.5cm 2cm;
+    overflow-y: scroll;
+    width: 100%;
+}
+h1, h2, h6,  p{
+    margin: 0;
+}
+
+#CVphoto{
+    height: 4cm;
+    width: 4cm;
+    object-fit: cover;
+    object-position: top;
+}
+
+#mainPersonal{
+      
+        height: 4cm;
+        display: grid;
+        grid-template-columns: 1fr 2fr 0 repeat(2, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 10px;
+        grid-row-gap: 0px;
+        background-color: #ff893b;
+        justify-content: center;
+        align-items: center;
+}
+
+#mainPersonal h1{
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+#mainPersonal h2{
+    font-weight: 600;
+}
+#mainPersonal p,a{
+    align-self: flex-end;
+    margin: 0.2cm;
+    margin-right: 1cm;
+
+}
+#mainPersonal a{
+    white-space: nowrap;
+    color: darkslategray;
+}
+
+#mainPersonal p{
+    align-self: flex-end;
+    grid-area: 1 / 5 / 2 / 6; 
+    text-decoration: underline;
+
+}
+
+#mainContent h6{
+    font-size: 0.4cm;
+    background-color: rgb(46, 47, 61);
+    color: white;
+    padding: 0.10cm;
+    padding-left: 0.40cm;
+    margin: 0.5cm 0 0.5cm 0;
+    border-radius: 2px ;
+    width: 4cm;
+}
+
+#mainContent p {
+    font-size: 0.43cm;
+    line-height: 0.6cm ;
+    word-wrap: break-word;
+
+}
+
+#mainContent h4 {
+    display: inline;
+}
+
+#mainContent p.dates{
+    color: rgb(65, 65, 65);
+    font-size: 0.40cm;
+    margin-bottom: 0.30cm; 
+    word-wrap: break-word;
+
+}
+
+#skillsView svg{
+    margin-top: 10px;
+}
+
+#skillsView p{
+    position: relative;
+    bottom: 0.15cm;
+    display: inline;
+    padding-bottom: 0.2cm;    
+}
+
+#skillsView ul{
+    list-style: none;  
+}
+
+
