@@ -8,21 +8,40 @@ class CvFormPersonal extends Component {
     this.onFormChange = this.onFormChange.bind(this);
     this.onImageChange = this.onImageChange.bind(this);
     this.state = {
-      fullName: "",
-      title: "",
-      tel: "",
-      email: "",
-      aboutMe: "",
-      photo: "",
-      location:""
+      current: {
+        fullName: "",
+        title: "",
+        tel: "",
+        email: "",
+        aboutMe: "",
+        photo: "",
+        location: "",
+      },
+      default: {
+          fullName: "John Doe",
+          title: "Full Stack Developer",
+          tel: "+1 942 9531393",
+          email: "johndoe@email.com",
+          location: 'Springfield',
+          aboutMe: `Experienced Web Developer adept in all stages of advanced 
+                       web development. Knowledgeable in user interface, testing, and 
+                  debugging processes. Equipped with a diverse and promising 
+                  skill-set. Able to effectively self-manage during independent 
+                  projects, as well as collaborate in a team setting.`,
+          photo: './src/assets/avatar.png'
+      }
     };
   }
 
-
   componentDidUpdate() {
-    setTimeout( () => {if(this.props.default) {
-     this.setState(this.props.default)
-    }}, 500)
+      if (this.props.useDefault) {
+        this.setState((state) => {
+          console.log('used Default')
+          return {current : state.default }
+        });
+        this.props.updateParent('personalInfo', this.state.default)
+
+      }
   }
 
   onFormChange(e) {
@@ -31,23 +50,22 @@ class CvFormPersonal extends Component {
   }
 
   handleChange(event) {
+    console.log(this.state)
     const value = event.target.value;
     const key = event.target.name;
 
-    this.setState({
-      [key]: value,
-    });
+    this.setState({current:{[key]: value, }});
   }
 
-  onImageChange = (event) => {
-    this.props.onPhotoUpload();
+  onImageChange = () => {
+    this.props.updateParent();
   };
 
   render() {
     return (
       <div>
         <h3>Personal Details</h3>
-
+      
         <form
           autoComplete="off"
           id="PersonalInfo"
@@ -61,7 +79,7 @@ class CvFormPersonal extends Component {
             <input
               name="fullName"
               type="text"
-              value={this.state.fullName}
+              value={this.state.current.fullName}
               onChange={this.handleChange}
               placeholder="Full Name"
             ></input>
@@ -71,7 +89,7 @@ class CvFormPersonal extends Component {
             <input
               name="location"
               type="text"
-              value={this.state.location}
+              value={this.state.current.location}
               onChange={this.handleChange}
               placeholder="Country, City, State"
             ></input>
@@ -81,7 +99,7 @@ class CvFormPersonal extends Component {
             <input
               name="title"
               type="text"
-              value={this.state.title}
+              value={this.state.current.title}
               onChange={this.handleChange}
               onClick={this.onClickBtn}
               placeholder="Title"
@@ -92,7 +110,7 @@ class CvFormPersonal extends Component {
             <input
               name="tel"
               type="tel"
-              value={this.state.tel}
+              value={this.state.current.tel}
               placeholder="+1 000 0000000"
               onChange={this.handleChange}
             ></input>
@@ -102,8 +120,7 @@ class CvFormPersonal extends Component {
             <input
               name="email"
               type="email"
-              value={this.state.email}
-
+              value={this.state.current.email}
               onChange={this.handleChange}
               placeholder="name@mail.com"
             ></input>
@@ -115,7 +132,7 @@ class CvFormPersonal extends Component {
               id="aboutMeTextarea"
               className="textareaCV"
               rows="6"
-              value={this.state.aboutMe}
+              value={this.state.current.aboutMe}
               onChange={this.handleChange}
             ></textarea>
           </label>

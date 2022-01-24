@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/App.css";
 import React, { Component } from "react";
 import CvFormPersonal from "./components/form-personal";
 import CvFormWorkExp from "./components/form-work-exp";
@@ -18,7 +18,6 @@ class App extends Component {
         tel: "",
         email: "",
         aboutMe: "",
-        photo: "",
       },
       workExp: [
         {
@@ -47,11 +46,20 @@ class App extends Component {
     this.loadDefault = this.loadDefault.bind(this);
     this.changeValue = this.changeValue.bind(this);
     this.hideView = this.hideView.bind(this);
+    this.changeObj = this.changeObj.bind(this)
   }
 
-  loadDefault(state) {
-    this.setState(state);
+  loadDefault() {
+    this.setState({useDefault:true})
   }
+
+  componentDidUpdate() {
+    console.log(this.state)
+    if(this.state.useDefault) this.setState({useDefault:false})
+  }
+
+
+    // this.setState(state)
 
   changeArray = (key, arr) => {
     let newState = Object.assign({}, this.state);
@@ -71,11 +79,10 @@ class App extends Component {
     let newState = Object.assign({}, this.state);
     newState[key][event.target.name] = event.target.value;
     newState.isEmpty = false
-
     this.setState(newState);
   };
 
-  changeValuee = (value, key) => {
+  changeObj = (key, value) => {
     let newState = Object.assign({}, this.state);
     newState[key] = value;
     this.setState(newState);
@@ -107,21 +114,22 @@ class App extends Component {
         <div id="editorCV">
           <CvFormPersonal
             onChange={this.changeValue}
-            onPhotoUpload={this.changeValuee}
-            default={this.state.personalInfo}
+            updateParent={this.changeObj}
+            useDefault={this.state.useDefault}
           />
           <CvFormWorkExp
             name="WorkExperience"
             onChange={this.changeArray}
             update={this.delete}
-            default={this.state.workExp[0]}
+            updateParent={this.changeObj}
+            useDefault={this.state.useDefault}
           />
+
           <CvFormEducation 
             default={this.state.education[0]}
             onChange={this.changeArray} />
           <CvSkills 
           onChange={this.changeArray} 
-          default={this.state.skills}
           />
           <DefaultCv loadCV={this.loadDefault}></DefaultCv>
         </div>

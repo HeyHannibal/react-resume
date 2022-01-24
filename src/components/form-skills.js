@@ -16,11 +16,11 @@ class CvSkills extends Component {
             ]
         }
     }
-    componentDidUpdate() {
-        setTimeout( () => {if(this.props.default) {
-            this.setState({skills:this.props.default})
-           }}, 500)
-    }
+    // componentDidUpdate() {
+    //     setTimeout( () => {if(this.props.default) {
+    //         this.setState({skills:this.props.default})
+    //        }}, 500)
+    // }
     sendArrToParent() {
         this.props.onChange("skills", this.state.skills);
     }

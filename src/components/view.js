@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import "../cv-view.css";
-import "../cv-content.css";
+import "../styles/cv-view.css";
+import "../styles/cv-content.css";
 import ClearIcon from "@mui/icons-material/Clear";
-import defaultImg from '../assets/avatar.png'
-
+import defaultImg from "../assets/avatar.png";
 
 class viewCV extends Component {
   constructor(props) {
@@ -24,17 +23,12 @@ class viewCV extends Component {
       image: URL.createObjectURL(img),
     });
   }
-  componentDidUpdate() {
-    console.log(this.props)
-  }
 
- 
   render() {
     const dateToString = (str) => {
       const date = new Date(str);
       return date.toLocaleString("default", { year: "numeric", month: "long" });
     };
-
 
     const props = this.props.info;
     const workExp = this.props.info.workExp.map((item) => (
@@ -73,12 +67,14 @@ class viewCV extends Component {
 
     const isHidden = props.isHidden;
     return (
-
       <div id="resultCont" className={isHidden ? "hideCV" : "showCV"}>
-        <div id="resultCV" className={(props.isEmpty) ? 'resultEmpty' : ''}  >
+        <div id="resultCV" >
           <div id="contentContainerCV">
-            <header id="mainPersonal" >
-              <img id="CVphoto" src={(props.photo) ? props.photo : defaultImg}></img>
+            <header id="mainPersonal">
+              <img
+                id="CVphoto"
+                src={props.photo ? props.photo : defaultImg}
+              ></img>
               <div id="header">
                 <h1>{props.personalInfo.fullName}</h1>
                 <h2>{props.personalInfo.title}</h2>
@@ -86,10 +82,10 @@ class viewCV extends Component {
               <a href="tel">{props.personalInfo.tel}</a>
               <p>{props.personalInfo.email}</p>
             </header>
-            <div id="mainContent" >
+            <div id="mainContent">
               <div id="personalInfoView">
-                <h6>Profile</h6>
-                <p>{props.personalInfo.aboutMe}</p>
+              <h6>Profile</h6>
+              <p>{props.personalInfo.aboutMe}</p>
               </div>
               <h6>Work Experience</h6>
               <div id="workExperienceView">{workExp}</div>

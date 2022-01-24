@@ -28,7 +28,18 @@ class CvFormWorkExp extends Component {
 
                 }
             ],
-            
+            default:[
+                    {
+                      company: 'CompanyName',
+                      position: 'Front-end developer',
+                      id: 'kzygf34',
+                      dateFrom: '2017-06',
+                      dateTo: '2018-12',
+                      description: `Effetively multitasked and worked well with internal and external teams.
+                              Helped to achieve a consistent look and visual theme across the website by promoting uniform fonts, formatting, images, and layout.
+                              Brought forth vast experience designing and developing responsive design websites.`,
+                    }
+            ]
         }
     this.onClickAddField = this.onClickAddField.bind(this)
     this.updateOnChange = this.updateOnChange.bind(this)
@@ -36,12 +47,15 @@ class CvFormWorkExp extends Component {
     this.onFormChange = this.onFormChange.bind(this)
     this.deleteField = this.deleteField.bind(this)
     }
-    componentDidUpdate(){
-        setTimeout( () => {if(this.props.default) {
-            this.setState({workExp:[this.props.default]})
-           }}, 500)
-    }
 
+    componentDidUpdate() {
+        if (this.props.useDefault) {
+          this.setState((state) => {
+            return {workExp : state.default }
+          });
+            this.props.updateParent('workExp',this.state.default);
+        }
+    }
     onFormChange(e) {
         e.preventDefault()
         this.props.onChange('workExp', this.state.workExp);
@@ -70,7 +84,6 @@ class CvFormWorkExp extends Component {
         let ObjToUpdate = this.findInState(event.target.id)
         workArr[ObjToUpdate][propName] = (customValue) ? customValue : event.target.value;
         this.setState({workExp: workArr})
-        console.log(this.state)
     }
 
 
