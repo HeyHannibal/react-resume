@@ -20,10 +20,6 @@ class CvSkills extends Component {
     }
   }
 
-  componentDidMount() {
-    console.log(this.props)
-  }
-
   addSkill(e) {
     let newState = Object.assign({}, this.state);
     let newSkill = {

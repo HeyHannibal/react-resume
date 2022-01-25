@@ -9,8 +9,13 @@ class viewCV extends Component {
     super(props);
     this.state = {
       isHidden: false,
+      overflowing: false,
     };
   }
+
+
+ 
+
 
   render() {
     const dateToString = (str) => {
@@ -31,7 +36,7 @@ class viewCV extends Component {
     ));
 
     const education = this.props.info.education.map((item) => (
-      
+
       <div key={item.id}>
         <h4>{item.degree}</h4>
         <h4>, </h4>
@@ -53,7 +58,7 @@ class viewCV extends Component {
     return (
 
       <div id="resultCont" className={isHidden ? "hideCV" : "showCV"}>
-        <div id="resultCV" className={(props.isEmpty) ? 'resultEmptyNah' : 'Nah'}  >
+        <div id="resultCV"  className={(props.isEmpty) ? 'resultEmptyNah' : 'Nah'}  >
           <div id="contentContainerCV">
             <header id="mainPersonal" >
               <img id="CVphoto" src={(props.photo) ? props.photo : defaultImg}></img>

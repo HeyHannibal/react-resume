@@ -54,7 +54,6 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state)
     if(this.state.useDefault) this.setState({useDefault:false})
   }
 

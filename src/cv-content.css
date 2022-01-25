@@ -20,8 +20,8 @@
     box-sizing: border-box;
     height: 86.5%;
     padding: 1cm 2cm 0.5cm 2cm;
-    overflow-y: scroll;
     width: 100%;
+    height: fit-content;
 }
 h1, h2, h6,  p{
     margin: 0;
