@@ -35,6 +35,7 @@ class CvFormEducation extends Component {
 
     componentDidUpdate() {
         setTimeout( () => {if(this.props.default) {
+            console.log('Edu UPDS')
             this.setState({education:[this.props.default]})
            }}, 500)
     }

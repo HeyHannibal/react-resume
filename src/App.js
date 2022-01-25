@@ -5,7 +5,8 @@ import CvFormWorkExp from "./components/form-work-exp";
 import CvFormEducation from "./components/form-education";
 import CvSkills from "./components/form-skills";
 import ViewCV from "./components/view";
-import DefaultCv from "./components/default";
+import defaultCV from './components/defaultCV'
+
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 class App extends Component {
@@ -49,8 +50,8 @@ class App extends Component {
     this.hideView = this.hideView.bind(this);
   }
 
-  loadDefault(state) {
-    this.setState(state);
+  loadDefault() {
+    this.setState(defaultCV);
   }
 
   changeArray = (key, arr) => {
@@ -116,14 +117,15 @@ class App extends Component {
             update={this.delete}
             default={this.state.workExp[0]}
           />
-          <CvFormEducation 
+          <CvFormEducation
             default={this.state.education[0]}
             onChange={this.changeArray} />
-          <CvSkills 
-          onChange={this.changeArray} 
-          default={this.state.skills}
+          <CvSkills
+            onChange={this.changeArray}
+            default={this.state.skills}
           />
-          <DefaultCv loadCV={this.loadDefault}></DefaultCv>
+          <button onClick={this.loadDefault}>CLICKITY CLICK</button>
+          {/* <DefaultCv loadCV={this.loadDefault}></DefaultCv> */}
         </div>
         <div
           id="pushLeft"
