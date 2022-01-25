@@ -20,9 +20,9 @@ class CvFormPersonal extends Component {
 
 
   componentDidUpdate() {
-    setTimeout( () => {if(this.props.default) {
-     this.setState(this.props.default)
-    }}, 500)
+    if(this.props.useDefault) {
+      this.setState(this.props.default)
+    }
   }
 
   onFormChange(e) {
