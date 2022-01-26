@@ -1,49 +1,56 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import DisplayPhoto from "./load-photo";
 
-class CvFormPersonal extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.onFormChange = this.onFormChange.bind(this);
-    this.onImageChange = this.onImageChange.bind(this);
-    this.state = {
-      fullName: "",
-      title: "",
-      tel: "",
-      email: "",
-      aboutMe: "",
-      photo: "",
-      location:""
-    };
-  }
+const CvFormPersonal = (props) => {
+ 
+    // handleChange = handleChange.bind(this);
+    // onFormChange = onFormChange.bind(this);
+    // onImageChange = onImageChange.bind(this);
+    
+    //  const  [fullName,setFullName] = useState('')
+    //  const  [title  ,setTitle] = useState('')
+    //  const  [tel  ,setTel] = useState('')
+    //  const  [email , setEmail] = useState('')
+    //  const  [aboutMe , setAboutMe] = useState('')
+    //  const  [photo , setPhoto] = useState('')
+    //  const  [location, setLocation] = useState('')
+    
+     const [personalDetails, setPersonalDetails] = useState({
+        fullName: "",
+        title: "",
+        tel: "",
+        email: "",
+        aboutMe: "",
+        location:"",
+     });
+  
 
 
-  componentDidUpdate() {
-    if(this.props.useDefault) {
-      this.setState(this.props.default)
-    }
-  }
+  // componentDidUpdate() {
+  //   if(props.useDefault) {
+  //     setState(props.default)
+  //   }
+  // }
 
-  onFormChange(e) {
+  function onFormChange(e) {
     e.preventDefault();
-    this.props.onChange(e, "personalInfo");
+    props.onChange(e, "personalInfo");
   }
 
-  handleChange(event) {
+  function handleChange(event) {
     const value = event.target.value;
     const key = event.target.name;
-
-    this.setState({
-      [key]: value,
-    });
+    setPersonalDetails((prevState) => ({
+      ...prevState,
+      [key]:value
+    }))
   }
 
-  onImageChange = (event) => {
-    this.props.onPhotoUpload();
-  };
+  // onImageChange = (event) => {
+  //   props.onPhotoUpload();
+  // };
 
-  render() {
+
     return (
       <div>
         <h3>Personal Details</h3>
@@ -52,17 +59,17 @@ class CvFormPersonal extends Component {
           autoComplete="off"
           id="PersonalInfo"
           action="#"
-          onChange={this.onFormChange}
+          onChange={onFormChange}
         >
-          <DisplayPhoto onChange={this.props.onPhotoUpload} />
+          <DisplayPhoto onChange={props.onPhotoUpload} />
 
           <label>
             Full Name
             <input
               name="fullName"
               type="text"
-              value={this.state.fullName}
-              onChange={this.handleChange}
+              value={personalDetails.fullName}
+              onChange={handleChange}
               placeholder="Full Name"
             ></input>
           </label>
@@ -71,8 +78,8 @@ class CvFormPersonal extends Component {
             <input
               name="location"
               type="text"
-              value={this.state.location}
-              onChange={this.handleChange}
+              value={personalDetails.location}
+              onChange={handleChange}
               placeholder="Country, City, State"
             ></input>
           </label>
@@ -81,9 +88,8 @@ class CvFormPersonal extends Component {
             <input
               name="title"
               type="text"
-              value={this.state.title}
-              onChange={this.handleChange}
-              onClick={this.onClickBtn}
+              value={personalDetails.title}
+              onChange={handleChange}
               placeholder="Title"
             ></input>
           </label>
@@ -92,9 +98,9 @@ class CvFormPersonal extends Component {
             <input
               name="tel"
               type="tel"
-              value={this.state.tel}
+              value={personalDetails.tel}
               placeholder="+1 000 0000000"
-              onChange={this.handleChange}
+              onChange={handleChange}
             ></input>
           </label>
           <label>
@@ -102,9 +108,9 @@ class CvFormPersonal extends Component {
             <input
               name="email"
               type="email"
-              value={this.state.email}
+              value={personalDetails.email}
 
-              onChange={this.handleChange}
+              onChange={handleChange}
               placeholder="name@mail.com"
             ></input>
           </label>
@@ -115,14 +121,14 @@ class CvFormPersonal extends Component {
               id="aboutMeTextarea"
               className="textareaCV"
               rows="6"
-              value={this.state.aboutMe}
-              onChange={this.handleChange}
+              value={personalDetails.aboutMe}
+              onChange={handleChange}
             ></textarea>
           </label>
         </form>
       </div>
     );
   }
-}
+
 
 export default CvFormPersonal;
