@@ -20,8 +20,8 @@
     box-sizing: border-box;
     height: 86.5%;
     padding: 1cm 2cm 0.5cm 2cm;
-    overflow-y: scroll;
     width: 100%;
+    height: fit-content;
 }
 h1, h2, h6,  p{
     margin: 0;
@@ -103,19 +103,16 @@ h1, h2, h6,  p{
 
 }
 
-#skillsView svg{
-    margin-top: 10px;
-}
 
-#skillsView p{
-    position: relative;
-    bottom: 0.15cm;
-    display: inline;
-    padding-bottom: 0.2cm;    
-}
 
 #skillsView ul{
-    list-style: none;  
+    text-decoration: underline solid 2px rgb(21, 27, 34);
+    text-underline-offset: 2.5px;
 }
 
 
+#skillsView li{
+    position: relative;
+    bottom: 0.15cm;
+    margin: 0.4cm    
+}

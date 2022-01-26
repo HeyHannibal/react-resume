@@ -34,6 +34,7 @@ class CvFormPersonal extends Component {
   }
 
   componentDidUpdate() {
+<<<<<<< HEAD
       if (this.props.useDefault) {
         this.setState((state) => {
           console.log('used Default')
@@ -42,6 +43,11 @@ class CvFormPersonal extends Component {
         this.props.updateParent('personalInfo', this.state.default)
 
       }
+=======
+    if(this.props.useDefault) {
+      this.setState(this.props.default)
+    }
+>>>>>>> old-state
   }
 
   onFormChange(e) {

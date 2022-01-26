@@ -1,11 +1,11 @@
-import "./styles/App.css";
+import "./App.css";
 import React, { Component } from "react";
 import CvFormPersonal from "./components/form-personal";
 import CvFormWorkExp from "./components/form-work-exp";
 import CvFormEducation from "./components/form-education";
 import CvSkills from "./components/form-skills";
 import ViewCV from "./components/view";
-import defaultCV from "./components/defaultCV";
+import DefaultCv from "./components/default";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 class App extends Component {
@@ -18,6 +18,7 @@ class App extends Component {
         tel: "",
         email: "",
         aboutMe: "",
+        photo: "",
       },
       workExp: [
         {
@@ -46,33 +47,18 @@ class App extends Component {
     this.loadDefault = this.loadDefault.bind(this);
     this.changeValue = this.changeValue.bind(this);
     this.hideView = this.hideView.bind(this);
-    this.changeObj = this.changeObj.bind(this)
   }
 
-  loadDefault() {
-<<<<<<< HEAD
-    this.setState({useDefault:true})
-=======
-   this.setState(defaultCV)
+  loadDefault(state) {
+    this.setState(state);
   }
-
-  componentDidUpdate() {
-    if(this.state.useDefault) this.setState({useDefault:false})
->>>>>>> old-state
-  }
-
-  componentDidUpdate() {
-    console.log(this.state)
-    if(this.state.useDefault) this.setState({useDefault:false})
-  }
-
-
-    // this.setState(state)
 
   changeArray = (key, arr) => {
     let newState = Object.assign({}, this.state);
     newState[key] = arr;
+    newState.isEmpty = false
     this.setState(newState);
+
   };
 
   addToArray = (key, obj) => {
@@ -85,10 +71,11 @@ class App extends Component {
     let newState = Object.assign({}, this.state);
     newState[key][event.target.name] = event.target.value;
     newState.isEmpty = false
+
     this.setState(newState);
   };
 
-  changeObj = (key, value) => {
+  changeValuee = (value, key) => {
     let newState = Object.assign({}, this.state);
     newState[key] = value;
     this.setState(newState);
@@ -120,39 +107,23 @@ class App extends Component {
         <div id="editorCV">
           <CvFormPersonal
             onChange={this.changeValue}
-<<<<<<< HEAD
-            updateParent={this.changeObj}
-=======
+            onPhotoUpload={this.changeValuee}
             default={this.state.personalInfo}
->>>>>>> old-state
-            useDefault={this.state.useDefault}
           />
           <CvFormWorkExp
+            name="WorkExperience"
             onChange={this.changeArray}
             update={this.delete}
-<<<<<<< HEAD
-            updateParent={this.changeObj}
-            useDefault={this.state.useDefault}
-=======
-            useDefault={this.state.useDefault}
-            default={this.state.workExp}
->>>>>>> old-state
+            default={this.state.workExp[0]}
           />
-
           <CvFormEducation 
-            onChange={this.changeArray} 
-            default={this.state.education}
-            useDefault={this.state.useDefault}
-            />
+            default={this.state.education[0]}
+            onChange={this.changeArray} />
           <CvSkills 
           onChange={this.changeArray} 
-<<<<<<< HEAD
-=======
-          useDefault={this.state.useDefault}
           default={this.state.skills}
->>>>>>> old-state
           />
-          <div id='loadExampleDiv'><button id='loadExampleBtn' onClick={this.loadDefault}>Load Example</button></div>
+          <DefaultCv loadCV={this.loadDefault}></DefaultCv>
         </div>
         <div
           id="pushLeft"

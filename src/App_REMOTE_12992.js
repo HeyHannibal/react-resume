@@ -1,4 +1,4 @@
-import "./styles/App.css";
+import "./App.css";
 import React, { Component } from "react";
 import CvFormPersonal from "./components/form-personal";
 import CvFormWorkExp from "./components/form-work-exp";
@@ -50,24 +50,12 @@ class App extends Component {
   }
 
   loadDefault() {
-<<<<<<< HEAD
-    this.setState({useDefault:true})
-=======
    this.setState(defaultCV)
   }
 
   componentDidUpdate() {
     if(this.state.useDefault) this.setState({useDefault:false})
->>>>>>> old-state
   }
-
-  componentDidUpdate() {
-    console.log(this.state)
-    if(this.state.useDefault) this.setState({useDefault:false})
-  }
-
-
-    // this.setState(state)
 
   changeArray = (key, arr) => {
     let newState = Object.assign({}, this.state);
@@ -120,23 +108,14 @@ class App extends Component {
         <div id="editorCV">
           <CvFormPersonal
             onChange={this.changeValue}
-<<<<<<< HEAD
-            updateParent={this.changeObj}
-=======
             default={this.state.personalInfo}
->>>>>>> old-state
             useDefault={this.state.useDefault}
           />
           <CvFormWorkExp
             onChange={this.changeArray}
             update={this.delete}
-<<<<<<< HEAD
-            updateParent={this.changeObj}
-            useDefault={this.state.useDefault}
-=======
             useDefault={this.state.useDefault}
             default={this.state.workExp}
->>>>>>> old-state
           />
 
           <CvFormEducation 
@@ -146,11 +125,8 @@ class App extends Component {
             />
           <CvSkills 
           onChange={this.changeArray} 
-<<<<<<< HEAD
-=======
           useDefault={this.state.useDefault}
           default={this.state.skills}
->>>>>>> old-state
           />
           <div id='loadExampleDiv'><button id='loadExampleBtn' onClick={this.loadDefault}>Load Example</button></div>
         </div>

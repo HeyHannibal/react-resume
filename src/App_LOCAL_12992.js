@@ -5,7 +5,7 @@ import CvFormWorkExp from "./components/form-work-exp";
 import CvFormEducation from "./components/form-education";
 import CvSkills from "./components/form-skills";
 import ViewCV from "./components/view";
-import defaultCV from "./components/defaultCV";
+import DefaultCv from "./components/default";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 class App extends Component {
@@ -50,15 +50,7 @@ class App extends Component {
   }
 
   loadDefault() {
-<<<<<<< HEAD
     this.setState({useDefault:true})
-=======
-   this.setState(defaultCV)
-  }
-
-  componentDidUpdate() {
-    if(this.state.useDefault) this.setState({useDefault:false})
->>>>>>> old-state
   }
 
   componentDidUpdate() {
@@ -72,7 +64,9 @@ class App extends Component {
   changeArray = (key, arr) => {
     let newState = Object.assign({}, this.state);
     newState[key] = arr;
+    newState.isEmpty = false
     this.setState(newState);
+
   };
 
   addToArray = (key, obj) => {
@@ -120,39 +114,24 @@ class App extends Component {
         <div id="editorCV">
           <CvFormPersonal
             onChange={this.changeValue}
-<<<<<<< HEAD
             updateParent={this.changeObj}
-=======
-            default={this.state.personalInfo}
->>>>>>> old-state
             useDefault={this.state.useDefault}
           />
           <CvFormWorkExp
+            name="WorkExperience"
             onChange={this.changeArray}
             update={this.delete}
-<<<<<<< HEAD
             updateParent={this.changeObj}
             useDefault={this.state.useDefault}
-=======
-            useDefault={this.state.useDefault}
-            default={this.state.workExp}
->>>>>>> old-state
           />
 
           <CvFormEducation 
-            onChange={this.changeArray} 
-            default={this.state.education}
-            useDefault={this.state.useDefault}
-            />
+            default={this.state.education[0]}
+            onChange={this.changeArray} />
           <CvSkills 
           onChange={this.changeArray} 
-<<<<<<< HEAD
-=======
-          useDefault={this.state.useDefault}
-          default={this.state.skills}
->>>>>>> old-state
           />
-          <div id='loadExampleDiv'><button id='loadExampleBtn' onClick={this.loadDefault}>Load Example</button></div>
+          <DefaultCv loadCV={this.loadDefault}></DefaultCv>
         </div>
         <div
           id="pushLeft"

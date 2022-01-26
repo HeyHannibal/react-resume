@@ -187,3 +187,21 @@ label {
 
     color:rgb(58, 70, 87)
 }
+
+
+#loadExampleDiv{
+  display: flex;
+  justify-content: center;
+}
+
+#loadExampleBtn{
+  background-color:#ff893b;
+  color:white;
+  font-family: 'Roboto';
+  font-weight: 700;
+  border-radius: 4px;
+  box-shadow: 1px 1px 5px darkslategray;
+  height: 1.5rem;
+  position: absolute;
+  margin-bottom: 1rem;
+}
