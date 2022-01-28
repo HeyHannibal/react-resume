@@ -42,6 +42,7 @@ class App extends Component {
       skills: [],
       isHidden: false,
       isEmpty: true,
+      useDefault: false
     };
     this.loadDefault = this.loadDefault.bind(this);
     this.changeValue = this.changeValue.bind(this);
@@ -54,6 +55,7 @@ class App extends Component {
   }
 
   componentDidUpdate() {
+    console.log(this.state.skills)
     if(this.state.useDefault) this.setState({useDefault:false})
   }
 

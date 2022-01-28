@@ -67,7 +67,7 @@ const ViewCV = (props) => {
             <div id="educationView">{education}</div>
             <h6>Skills</h6>
             <div id="skillsView">
-              <ul>{skills}</ul>
+               <ul>{skills}</ul> 
             </div>
           </div>
         </div>
