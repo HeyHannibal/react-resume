@@ -10,7 +10,7 @@ const defaultCV = {
     },
     "workExp": [
         {
-            "company": "Gryzzl",
+            "company": "Company",
             "position": "Front-end developer",
             "id": "kzygf34",
             "dateFrom": "2017-06",
@@ -21,11 +21,11 @@ const defaultCV = {
     "education": [
         {
             "degree": "Bachelor of Computer Science",
-            "school": "University 1",
+            "school": "College",
             "id": "fghfg12",
             "dateFrom": "2015-01",
             "dateTo": "2019-04",
-            "description": "Gfpo opogpnbo dfpgp tfhdfph wpejvpwerj  sgkg okg[r wk"
+            "description": ""
         }
     ],
     "skills": [

@@ -6,7 +6,6 @@ class CvFormPersonal extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.onFormChange = this.onFormChange.bind(this);
-    this.onImageChange = this.onImageChange.bind(this);
     this.state = {
       fullName: "",
       title: "",
@@ -39,9 +38,7 @@ class CvFormPersonal extends Component {
     });
   }
 
-  onImageChange = (event) => {
-    this.props.onPhotoUpload();
-  };
+ 
 
   render() {
     return (
@@ -54,7 +51,7 @@ class CvFormPersonal extends Component {
           action="#"
           onChange={this.onFormChange}
         >
-          <DisplayPhoto onChange={this.props.onPhotoUpload} />
+          <DisplayPhoto addImg={this.props.addImg} />
 
           <label>
             Full Name

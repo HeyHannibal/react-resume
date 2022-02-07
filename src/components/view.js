@@ -26,7 +26,7 @@ class viewCV extends Component {
     const workExp = this.props.info.workExp.map((item) => (
       <div key={item.id} className="workExp">
         <h4>{item.position}</h4>
-        <h4>at</h4>
+        <h4> at </h4>
         <h4>{item.company}</h4>
         <p className="dates">
           {dateToString(item.dateFrom)} - {dateToString(item.dateTo)}

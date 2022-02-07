@@ -32,6 +32,12 @@ class CvFormEducation extends Component {
         this.updateParent = this.updateParent.bind(this);
     }
 
+    componentDidUpdate() {
+        if (this.props.useDefault) {
+            this.setState({ education: this.props.default });
+        }
+    }
+
     handleChange(event) {
         let eduArr = [...this.state.education];
         let ObjToUpdate = this.findInState(event.target.id);

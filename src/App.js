@@ -20,33 +20,16 @@ class App extends Component {
         aboutMe: "",
       },
       workExp: [
-        {
-          company: "",
-          position: "",
-          id: "",
-          dateFrom: "",
-          dateTo: "",
-          description: "",
-        },
       ],
       education: [
-        {
-          degree: "",
-          school: "",
-          id: "",
-          dateFrom: "",
-          dateTo: "",
-          description: "",
-        },
       ],
       skills: [],
-      isHidden: false,
       isEmpty: true,
     };
     this.loadDefault = this.loadDefault.bind(this);
     this.changeValue = this.changeValue.bind(this);
     this.hideView = this.hideView.bind(this);
-    this.changeObj = this.changeObj.bind(this)
+    this.addImg = this.addImg.bind(this);
   }
 
   loadDefault() {
@@ -72,13 +55,6 @@ class App extends Component {
   changeValue = (event, key) => {
     let newState = Object.assign({}, this.state);
     newState[key][event.target.name] = event.target.value;
-    newState.isEmpty = false
-    this.setState(newState);
-  };
-
-  changeObj = (key, value) => {
-    let newState = Object.assign({}, this.state);
-    newState[key] = value;
     this.setState(newState);
   };
 
@@ -95,6 +71,12 @@ class App extends Component {
       : this.setState({ isHidden: true });
   }
 
+  addImg(url) {
+    let newState = Object.assign({}, this.state);
+    newState["photo"] = url;
+    this.setState(newState);
+  }
+
   render() {
     return (
       <div id="appCont" className={this.state.isHidden ? "viewIsHidden" : ""}>
@@ -108,6 +90,7 @@ class App extends Component {
         <div id="editorCV">
           <CvFormPersonal
             onChange={this.changeValue}
+            addImg={this.addImg}
             default={this.state.personalInfo}
             useDefault={this.state.useDefault}
           />

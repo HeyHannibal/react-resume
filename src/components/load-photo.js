@@ -8,12 +8,13 @@ class DisplayImage extends Component {
       image: null
     };
     this.onImageChange = this.onImageChange.bind(this);
+
   }
 
   onImageChange = event => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
-          this.props.onChange(URL.createObjectURL(img), 'photo')
+          this.props.addImg(URL.createObjectURL(img))
 
     }
   };
@@ -24,7 +25,6 @@ class DisplayImage extends Component {
       <div>
         <div>
           <div id='uploadPhotoDiv'>
-            <img src={this.state.image} />
             <input id='photoInput' type="file" name="myImage" onChange={this.onImageChange} hidden />
             <label htmlFor='photoInput' id='styleUploadBtnLabel'>
               <AccountBoxIcon />
