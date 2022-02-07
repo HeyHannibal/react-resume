@@ -1,184 +1,168 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import uniqid from "uniqid";
 import ClearIcon from "@mui/icons-material/Clear";
 
-class CvFormWorkExp extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            workExpDefault: {
-                company: "",
-                position: "",
-                id: uniqid(),
-                dateFrom: "",
-                dateTo: "",
-                description: "",
-            },
-            workExp: [
-                {
-                    company: "",
-                    position: "",
-                    id: uniqid(),
-                    dateFrom: "",
-                    dateTo: "",
-                    description: "",
-                },
-            ],
-        };
-        this.addField = this.addField.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.findInState = this.findInState.bind(this);
-        this.updateParent = this.updateParent.bind(this);
-        this.deleteField = this.deleteField.bind(this);
+let CvFormWorkExp = (props) => {
+
+    const [workExp, setWorkExp] = useState([{
+        company: "",
+        position: "",
+        id: uniqid(),
+        dateFrom: "",
+        dateTo: "",
+        description: "",
+    },])
+
+    const createWorkExp = () => ({
+        company: "",
+        position: "",
+        id: uniqid(),
+        dateFrom: "",
+        dateTo: "",
+        description: "",
+    })
+
+    useEffect(() => {
+        if(props.useDefault) setWorkExp(props.default)
+    })
+
+    function handleChange(e) {
+        let objToUpdate = findInState(e.currentTarget.id);
+        let newWorkExp = workExp
+        newWorkExp[objToUpdate][e.currentTarget.name] = e.currentTarget.value
+        setWorkExp(newWorkExp);
     }
 
-    componentDidUpdate() {
-        if (this.props.useDefault) {
-            this.setState({ workExp: this.props.default });
-        }
+    let findInState = (id) => {
+
+        return workExp.findIndex((item) => item.id.toString() === id.toString())
     }
 
-    handleChange(event) {
-        let workArr = [...this.state.workExp];
-        let ObjToUpdate = this.findInState(event.target.id);
-        workArr[ObjToUpdate][event.target.name] = event.target.value;
-        this.setState({ workExp: workArr });
-    }
 
-    findInState(id) {
-        let workArr = [...this.state.workExp];
-        let ObjToUpdate = workArr.findIndex(
-            (item) => item.id.toString() === id.toString()
-        );
-        return ObjToUpdate;
-    }
-
-    updateParent(e) {
+    function updateParent(e) {
         e.preventDefault();
-        this.props.onChange("workExp", this.state.workExp);
+        props.onChange("workExp", workExp);
     }
 
-    addField() {
-        let workArr = [...this.state.workExp];
-        let newWork = Object.assign({}, this.state.workExpDefault);
-        newWork.id = uniqid();
-        workArr.push(newWork);
-        this.setState({ workExp: workArr });
+    function addField() {
+        let newWork = createWorkExp();
+        setWorkExp((prevState) => [...prevState, newWork]);
     }
 
-    deleteField(event) {
-        let workArr = [...this.state.workExp];
-        let index = this.findInState(event.target.id);
-        workArr.splice(index, 1);
-        this.setState({ workExp: workArr });
-        this.props.onChange("workExp", workArr);
+    function deleteField(e) {
+        let index = findInState(e.currentTarget.id);
+        let newWorkArr = Object.assign([], workExp)
+        newWorkArr.splice(index, 1);
+        setWorkExp(newWorkArr)
+        props.onChange("workExp", newWorkArr);
     }
 
-    render() {
-        let currentDate = () => new Date().toISOString().split("T")[0];
-        let activeField = (id) => this.state.workExp[this.findInState(id)];
 
-        const inputs = this.state.workExp.map((item) => (
-            <div className="experienceFormDiv" key={item.id}>
-                <form
-                    className="workExperienceForm"
-                    action="#"
-                    onChange={this.updateParent}
-                >
-                    <label>
-                        Position
-                        <input
-                            name="position"
-                            value={activeField(item.id).position}
-                            onChange={this.handleChange}
-                            id={item.id}
-                            placeholder="Position"
-                            type="text"
-                            key={item.id + "posInput"}
-                        ></input>
-                    </label>
+    let currentDate = () => new Date().toISOString().split("T")[0];
+    let activeField = (id) => workExp[findInState(id)];
 
-                    <label htmlFor="company">
-                        Company
-                        <input
-                            name="company"
-                            value={activeField(item.id).company}
-                            onChange={this.handleChange}
-                            id={item.id}
-                            placeholder="Company"
-                            type="text"
-                            key={item.id + "compInput"}
-                        ></input>
-                    </label>
+    const inputs = workExp.map((item) => (
+        <div className="experienceFormDiv" key={item.id+'key'}>
+            <form
+                className="workExperienceForm"
+                action="#"
+                onChange={updateParent}
+            >
+                <label>
+                    Position
+                    <input
+                        name="position"
+                        value={activeField(item.id).position}
+                        onChange={handleChange}
+                        id={item.id}
+                        placeholder="Position"
+                        type="text"
 
-                    <label htmlFor="dateFrom">
-                        Start Date
-                        <input
-                            name="dateFrom"
-                            value={activeField(item.id).dateFrom}
-                            max={
-                                activeField(item.id).dateTo != ""
-                                    ? activeField(item.id).dateTo
-                                    : currentDate()
-                            }
-                            onChange={this.handleChange}
-                            id={item.id}
-                            type="month"
-                            key={item.id + "dateFromInput"}
-                        ></input>
-                    </label>
+                        key={item.id + "posInput"}
+                    ></input>
+                </label>
 
-                    <label htmlFor="dateTo">
-                        End Date
-                        <input
-                            name="dateTo"
-                            value={activeField(item.id).dateTo}
-                            min={activeField(item.id).dateFrom}
-                            max={currentDate()}
-                            onChange={this.handleChange}
-                            id={item.id}
-                            placeholder="Company"
-                            type="month"
-                            key={item.id + "dateToInput"}
-                        ></input>
-                    </label>
+                <label htmlFor="company">
+                    Company
+                    <input
+                        name="company"
+                        value={activeField(item.id).company}
+                        onChange={handleChange}
+                        id={item.id}
+                        placeholder="Company"
+                        type="text"
+                        key={item.id + "compInput"}
+                    ></input>
+                </label>
 
-                    <label className="textareaLabel">
-                        <textarea
-                            name="description"
-                            value={activeField(item.id).description}
-                            rows="5"
-                            cols="40"
-                            onChange={this.handleChange}
-                            id={item.id}
-                            className="textareaCV"
-                            placeholder=""
-                            key={item.id + "descInput"}
-                        ></textarea>
-                    </label>
-                </form>
+                <label htmlFor="dateFrom">
+                    Start Date
+                    <input
+                        name="dateFrom"
+                        value={activeField(item.id).dateFrom}
+                        max={
+                            activeField(item.id).dateTo != ""
+                                ? activeField(item.id).dateTo
+                                : currentDate()
+                        }
+                        onChange={handleChange}
+                        id={item.id}
+                        type="month"
+                        key={item.id + "dateFromInput"}
+                    ></input>
+                </label>
 
-                <button
-                    onClick={this.deleteField}
-                    className="deleteForm"
-                    key={item.id + "del"}
-                    id={item.id}
-                >
-                    <ClearIcon />
-                </button>
+                <label htmlFor="dateTo">
+                    End Date
+                    <input
+                        name="dateTo"
+                        value={activeField(item.id).dateTo}
+                        min={activeField(item.id).dateFrom}
+                        max={currentDate()}
+                        onChange={handleChange}
+                        id={item.id}
+                        placeholder="Company"
+                        type="month"
+                        key={item.id + "dateToInput"}
+                    ></input>
+                </label>
 
-            </div>
-        ));
-        return (
-            <div id="workExpFrom">
-                <h3>Work Experience</h3>
-                {inputs}
-                <button className="addNewField" onClick={this.addField}>
-                    ➕ Work Experience
-                </button>
-            </div>
-        );
-    }
+                <label className="textareaLabel">
+                    <textarea
+                        name="description"
+                        value={activeField(item.id).description}
+                        rows="5"
+                        cols="40"
+                        onChange={handleChange}
+                        id={item.id}
+                        className="textareaCV"
+                        placeholder=""
+                        key={item.id + "descInput"}
+                    ></textarea>
+                </label>
+            </form>
+
+            <button
+                onClick={deleteField}
+                className="deleteForm"
+                key={item.id + "del"}
+              id={item.id}
+            >
+                <ClearIcon  />
+            </button>
+
+        </div>
+    ));
+    return (
+        <div id="workExpFrom">
+            <h3>Work Experience</h3>
+            {inputs}
+            <button className="addNewField" onClick={addField}>
+                ➕ Work Experience
+            </button>
+        </div>
+    );
 }
+
 
 export default CvFormWorkExp;

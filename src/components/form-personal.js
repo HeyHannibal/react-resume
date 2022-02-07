@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import DisplayPhoto from "./load-photo";
+import UploadImg from "./upload-img";
 
 const CvFormPersonal = (props) => {
   const [personalDetails, setPersonalDetails] = useState({
@@ -18,6 +18,7 @@ const CvFormPersonal = (props) => {
   });
 
   function onFormChange(e) {
+    if(e.target.name === 'myImage') return 
     e.preventDefault();
     props.onChange(e, "personalInfo");
   }
@@ -29,19 +30,29 @@ const CvFormPersonal = (props) => {
       ...prevState,
       [key]: value,
     }));
+    console.log(personalDetails)
+  }
+
+
+  function ImgUp(url) {
+    setPersonalDetails((prevState) => ({
+      ...prevState, 
+      'myImage':url,
+    }))
+    props.addImg(url)
   }
 
   return (
     <div>
       <h3>Personal Details</h3>
-
+      <img src={personalDetails.photo}></img>
       <form
         autoComplete="off"
         id="PersonalInfo"
         action="#"
         onChange={onFormChange}>
           
-        <DisplayPhoto onChange={props.onPhotoUpload} />
+        <UploadImg onChange={ImgUp} />
 
         <label>
           Full Name

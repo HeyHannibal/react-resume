@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "../cv-view.css";
 import "../cv-content.css";
 import defaultImg from '../assets/avatar.png'
@@ -6,6 +6,7 @@ import defaultImg from '../assets/avatar.png'
 
 const ViewCV = (props) => {
   const dateToString = (str) => {
+    console.log(props.info)
     const date = new Date(str);
     return date.toLocaleString("default", { year: "numeric", month: "long" });
   };
@@ -13,7 +14,7 @@ const ViewCV = (props) => {
   const workExp = props.info.workExp.map((item) => (
     <div key={item.id} className="workExp">
       <h4>{item.position}</h4>
-      <h4>at</h4>
+      <h4> at </h4>
       <h4>{item.company}</h4>
       <p className="dates">
         {dateToString(item.dateFrom)} - {dateToString(item.dateTo)}
@@ -23,7 +24,7 @@ const ViewCV = (props) => {
   ));
 
   const education = props.info.education.map((item) => (
-
+    
     <div key={item.id}>
       <h4>{item.degree}</h4>
       <h4>, </h4>
@@ -41,11 +42,9 @@ const ViewCV = (props) => {
     </li>
   ));
 
-
   return (
-
-    <div id="resultCont" >
-      <div id="resultCV" className={(props.info.isEmpty) ? 'resultEmptyNah' : 'Nah'}  >
+    <div id="resultCont" className={(props.info.isHidden) ? 'hideCV' : ''} >
+      <div id="resultCV"   >
         <div id="contentContainerCV">
           <header id="mainPersonal" >
             <img id="CVphoto" src={(props.info.photo) ? props.info.photo : defaultImg}></img>

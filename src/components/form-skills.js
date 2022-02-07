@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import uniqid from "uniqid";
 import ClearIcon from "@mui/icons-material/Clear";
 
@@ -10,13 +10,10 @@ const CvSkills = (props) => {
 
   useEffect(() => {
     if (props.useDefault) {
-      setSkills(() => props.default);
+      setSkills(props.default);
     }
-    props.onChange("skills", skills);
-    console.log(skills)
-  },[skills]);
-
-  
+    props.onChange('skills',skills)
+  }, [skills])
 
  function addSkill(e) {
   e.preventDefault();

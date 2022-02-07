@@ -1,20 +1,18 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import uniqid from "uniqid";
 import ClearIcon from "@mui/icons-material/Clear";
 
-class CvFormEducation extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            educationDefault: {
+let CvFormEducation = (props) => {
+  
+          const  createEducation = () => ({
                 degree: "",
                 school: "",
-                id: "",
+                id: uniqid(),
                 dateFrom: "",
                 dateTo: "",
                 description: "",
-            },
-            education: [
+            })
+    const [education, setEducation] = useState([
                 {
                     degree: "",
                     school: "",
@@ -24,67 +22,60 @@ class CvFormEducation extends Component {
                     description: "",
                 },
             ],
-        };
-        this.addField = this.addField.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.findInState = this.findInState.bind(this);
-        this.deleteField = this.deleteField.bind(this);
-        this.updateParent = this.updateParent.bind(this);
+    )
+
+    useEffect(() => {
+        if(props.useDefault) setEducation(props.default)
+    })
+
+
+    function handleChange(e) {
+        let objToUpdate = findInState(e.currentTarget.id);
+        let educationExp = education
+        educationExp[objToUpdate][e.currentTarget.name] = e.currentTarget.value
+        setEducation(educationExp);
     }
 
-    handleChange(event) {
-        let eduArr = [...this.state.education];
-        let ObjToUpdate = this.findInState(event.target.id);
-        eduArr[ObjToUpdate][event.target.name] = event.target.value;
-        this.setState({ education: eduArr });
+    let findInState = (id) => {
+        return education.findIndex((item) => item.id.toString() === id.toString())
     }
 
-    findInState(id) {
-        let eduArr = [...this.state.education];
-        let ObjToUpdate = eduArr.findIndex(
-            (item) => item.id.toString() === id.toString()
-        );
-        return ObjToUpdate;
-    }
 
-    updateParent(e) {
+    function updateParent(e) {
         e.preventDefault();
-        this.props.onChange("education", this.state.education);
+        props.onChange("education", education);
     }
 
-    addField() {
-        let eduArr = [...this.state.education];
-        let newEdu = Object.assign({}, this.state.educationDefault);
-        newEdu.id = uniqid();
-        eduArr.push(newEdu);
-        this.setState({ education: eduArr });
+    function addField() {
+        let education = createEducation();
+        setEducation((prevState) => [...prevState, education]);
     }
 
-    deleteField(event) {
-        let eduArr = [...this.state.education];
-        let index = this.findInState(event.target.id);
-        eduArr.splice(index, 1);
-        this.setState({ education: eduArr });
-        this.props.onChange("education", eduArr);
+    function deleteField(e) {
+        let index = findInState(e.currentTarget.id);
+        let newEducation = Object.assign([], education)
+        newEducation.splice(index, 1);
+        setEducation(newEducation)
+        props.onChange("education", newEducation);
     }
 
-    render() {
+    
         const currentDate = () => new Date().toISOString().split("T")[0];
-        const activeField = (id) => this.state.education[this.findInState(id)];
+        const activeField = (id) => education[findInState(id)];
 
-        const inputs = this.state.education.map((item) => (
+        const inputs = education.map((item) => (
             <div className="experienceFormDiv" key={item.id + "cont"}>
                 <form
                     action="#"
                     className="experienceForm"
-                    onChange={this.updateParent}
+                    onChange={updateParent}
                 >
                     <label htmlFor="school">
                         School
                         <input
                             name="school"
                             value={activeField(item.id).school}
-                            onChange={this.handleChange}
+                            onChange={handleChange}
                             id={item.id}
                             placeholder="School"
                             type="text"
@@ -97,7 +88,7 @@ class CvFormEducation extends Component {
                         <input
                             name="degree"
                             value={activeField(item.id).degree}
-                            onChange={this.handleChange}
+                            onChange={handleChange}
                             id={item.id}
                             placeholder="Degree"
                             type="text"
@@ -115,7 +106,7 @@ class CvFormEducation extends Component {
                                     ? activeField(item.id).dateTo
                                     : currentDate()
                             }
-                            onChange={this.handleChange}
+                            onChange={handleChange}
                             id={item.id}
                             type="month"
                             key={item.id + "dateFromInput"}
@@ -129,7 +120,7 @@ class CvFormEducation extends Component {
                             value={activeField(item.id).dateTo}
                             min={activeField(item.id).dateFrom}
                             max={currentDate()}
-                            onChange={this.handleChange}
+                            onChange={handleChange}
                             id={item.id}
                             placeholder="degree"
                             type="month"
@@ -144,7 +135,7 @@ class CvFormEducation extends Component {
                             value={activeField(item.id).description}
                             rows="4"
                             cols="40"
-                            onChange={this.handleChange}
+                            onChange={handleChange}
                             id={item.id}
                             className="textareaCV"
                             placeholder=""
@@ -153,7 +144,7 @@ class CvFormEducation extends Component {
                     </label>
                 </form>
                 <button
-                    onClick={this.deleteField}
+                    onClick={deleteField}
                     className="deleteForm"
                     key={item.id + "del"}
                     id={item.id}
@@ -166,12 +157,12 @@ class CvFormEducation extends Component {
             <div id="educationForm">
                 <h3>Education</h3>
                 {inputs}
-                <button className="addNewField" onClick={this.addField}>
+                <button className="addNewField" onClick={addField}>
                     ➕ Education
                 </button>
             </div>
         );
     }
-}
+
 
 export default CvFormEducation;
