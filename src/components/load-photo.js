@@ -1,35 +1,29 @@
-import React, { Component } from "react";
+/* eslint-disable react/destructuring-assignment */
+import React, { Component } from 'react';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 class DisplayImage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      image: null
-    };
     this.onImageChange = this.onImageChange.bind(this);
-
   }
 
-  onImageChange = event => {
+  onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      let img = event.target.files[0];
-          this.props.addImg(URL.createObjectURL(img))
-
+      const img = event.target.files[0];
+      this.props.addImg(URL.createObjectURL(img));
     }
   };
 
- 
   render() {
     return (
       <div>
         <div>
-          <div id='uploadPhotoDiv'>
-            <input id='photoInput' type="file" name="myImage" onChange={this.onImageChange} hidden />
-            <label htmlFor='photoInput' id='styleUploadBtnLabel'>
+          <div id="uploadPhotoDiv">
+            <input id="photoInput" type="file" name="myImage" onChange={this.onImageChange} hidden />
+            <label htmlFor="photoInput" id="styleUploadBtnLabel">
               <AccountBoxIcon />
             </label>
-            <label id='uploadPhotoLabel'>Upload Photo</label>
           </div>
         </div>
       </div>
@@ -37,4 +31,4 @@ class DisplayImage extends Component {
   }
 }
 
-export default DisplayImage
+export default DisplayImage;

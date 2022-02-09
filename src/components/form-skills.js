@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import uniqid from "uniqid";
-import ClearIcon from "@mui/icons-material/Clear";
+import React, { Component } from 'react';
+import uniqid from 'uniqid';
+import ClearIcon from '@mui/icons-material/Clear';
 
 class CvSkills extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class CvSkills extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.deleteSkill = this.deleteSkill.bind(this);
     this.state = {
-      currentInput: "",
+      currentInput: '',
       skills: [],
     };
   }
@@ -20,29 +20,29 @@ class CvSkills extends Component {
     }
   }
 
-  addSkill(e) {
-    let newState = Object.assign({}, this.state);
-    let newSkill = {
-      skill: this.state.currentInput,
-      id: uniqid(),
-    };
-    newState.skills.push(newSkill);
-    newState.currentInput = "";
-    this.setState(newState);
-    this.props.onChange("skills", this.state.skills);
-    e.preventDefault();
-  }
-
   handleChange(event) {
     this.setState({
       currentInput: event.target.value,
     });
   }
 
+  addSkill(e) {
+    const newState = { ...this.state };
+    const newSkill = {
+      skill: this.state.currentInput,
+      id: uniqid(),
+    };
+    newState.skills.push(newSkill);
+    newState.currentInput = '';
+    this.setState(newState);
+    this.props.onChange('skills', this.state.skills);
+    e.preventDefault();
+  }
+
   deleteSkill(event) {
-    let newSkills = [...this.state.skills];
-    let index = newSkills.findIndex(
-      (item) => item.id.toString() === event.target.id.toString()
+    const newSkills = [...this.state.skills];
+    const index = newSkills.findIndex(
+      (item) => item.id.toString() === event.target.id.toString(),
     );
     newSkills.splice(index, 1);
     this.setState({ skills: newSkills });
@@ -65,7 +65,7 @@ class CvSkills extends Component {
             id="skillsFormInput"
             value={this.state.currentInput}
             onChange={this.handleChange}
-          ></input>
+          />
           <button className="addNewField" type="submit">
             ➕ Add Skill
           </button>
