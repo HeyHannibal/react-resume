@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/react-resume-project/static/css/main.b2c2f8a0.css",
-    "main.js": "/react-resume-project/static/js/main.bb6fda60.js",
-    "index.html": "/react-resume-project/index.html",
-    "main.b2c2f8a0.css.map": "/react-resume-project/static/css/main.b2c2f8a0.css.map",
-    "main.bb6fda60.js.map": "/react-resume-project/static/js/main.bb6fda60.js.map"
+    "main.css": "/react-resume/static/css/main.b2c2f8a0.css",
+    "main.js": "/react-resume/static/js/main.bb6fda60.js",
+    "index.html": "/react-resume/index.html",
+    "main.b2c2f8a0.css.map": "/react-resume/static/css/main.b2c2f8a0.css.map",
+    "main.bb6fda60.js.map": "/react-resume/static/js/main.bb6fda60.js.map"
   },
   "entrypoints": [
     "static/css/main.b2c2f8a0.css",
